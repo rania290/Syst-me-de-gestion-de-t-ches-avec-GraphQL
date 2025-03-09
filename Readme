@@ -1,0 +1,171 @@
+# Système de gestion de tâches avec GraphQL
+
+Ce projet est une API GraphQL simple pour gérer des tâches. Il utilise Node.js, Express, Apollo Server et GraphQL pour fournir des fonctionnalités de base telles que l'ajout, la récupération, la mise à jour et la suppression de tâches.
+
+## Objectifs
+- Comprendre comment configurer et utiliser GraphQL avec Node.js et Express.
+- Apprendre à créer un schéma GraphQL et des résolveurs pour gérer les requêtes et les mutations.
+- Créer une API simple de gestion de tâches.
+
+## Outils utilisés
+- **Node.js** : Environnement d'exécution JavaScript.
+- **Express** : Framework web pour Node.js.
+- **Apollo Server** : Serveur GraphQL pour Node.js.
+- **GraphQL** : Langage de requête pour les API.
+
+---
+
+## Installation
+
+### 1. Cloner le dépôt
+Si vous avez un dépôt Git, clonez-le :
+```bash
+git clone <URL_DU_DEPOT>
+cd tp-graphql
+```
+
+### 2. Installer les dépendances
+Installez les dépendances nécessaires avec npm :
+```bash
+npm install
+```
+
+### 3. Démarrer le serveur
+Démarrez le serveur avec la commande suivante :
+```bash
+node index.js
+```
+
+Le serveur démarrera sur `http://localhost:5000/graphql`.
+
+---
+
+## Structure du projet
+```
+tp-graphql/
+├── node_modules/          # Dépendances installées
+├── taskSchema.gql         # Schéma GraphQL des tâches
+├── taskSchema.js          # Implémentation du schéma GraphQL
+├── taskResolver.js        # Résolveurs pour les requêtes et mutations
+├── index.js               # Point d'entrée du serveur
+├── package.json           # Fichier de configuration du projet
+└── README.md              # Documentation du projet
+```
+
+---
+
+## Utilisation de l'API
+
+### 1. Accéder à l'interface GraphQL
+Ouvrez votre navigateur et accédez à l'interface GraphQL Apollo Sandbox :
+```
+http://localhost:5000/graphql
+```
+
+### 2. Exemples de requêtes
+
+#### Récupérer toutes les tâches
+```graphql
+query {
+  tasks {
+    id
+    title
+    description
+    completed
+    duration
+  }
+}
+```
+
+#### Ajouter une nouvelle tâche
+```graphql
+mutation {
+  addTask(title: "Nouvelle Tâche", description: "Description de la nouvelle tâche", completed: false, duration: 5) {
+    id
+    title
+    description
+    completed
+    duration
+  }
+}
+```
+
+#### Marquer une tâche comme terminée
+```graphql
+mutation {
+  completeTask(id: "1") {
+    id
+    title
+    completed
+  }
+}
+```
+
+#### Changer la description d'une tâche
+```graphql
+mutation {
+  changeDescription(id: "1", description: "Nouvelle description") {
+    id
+    title
+    description
+  }
+}
+```
+
+#### Supprimer une tâche
+```graphql
+mutation {
+  deleteTask(id: "1") {
+    id
+    title
+  }
+}
+```
+
+---
+
+## Schéma GraphQL
+
+Le schéma GraphQL est défini dans `taskSchema.gql` :
+
+```graphql
+type Task {
+  id: ID!
+  title: String!
+  description: String!
+  completed: Boolean!
+  duration: Int
+}
+
+type Query {
+  task(id: ID!): Task
+  tasks: [Task]
+}
+
+type Mutation {
+  addTask(title: String!, description: String!, completed: Boolean!, duration: Int): Task
+  completeTask(id: ID!): Task
+  changeDescription(id: ID!, description: String!): Task
+  deleteTask(id: ID!): Task
+}
+```
+
+---
+
+## Résolveurs
+
+Les résolveurs sont implémentés dans `taskResolver.js`. Ils gèrent les requêtes et les mutations pour interagir avec les données des tâches.
+
+---
+
+
+
+## Licence
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+---
+
+## Remarques
+- Ce projet est un exemple éducatif pour comprendre GraphQL avec Node.js et Express.
+- Vous pouvez étendre cette API en ajoutant des fonctionnalités supplémentaires, comme l'authentification ou la pagination.
+
