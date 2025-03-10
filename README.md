@@ -1,1 +1,0 @@
-# Syst-me-de-gestion-de-t-ches-avec-GraphQL
